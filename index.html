@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Multiple sizes for better browser support -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/National_Disaster_Management_Authority_Logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/National_Disaster_Management_Authority_Logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/National_Disaster_Management_Authority_Logo.png">
+    <meta name="description" content="Arghyadip's futuristic portfolio - Full Stack Developer & AI Explorer">
+    <meta name="keywords" content="Arghyadip, Portfolio, Full Stack Developer, AI, Projects, Resume">
+    <title>SurakshaNet: India's Disaster Response Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ecdc4;
+            animation: pulse 2s infinite;
+        }
+
+        /* Main Content */
+        .main {
+            margin-top: 100px;
+            padding: 40px 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .location-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .location-text {
+            font-size: 1.1rem;
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+
+        .coords {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Control Panel */
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Alerts Section */
+        .alerts {
+            margin-top: 40px;
+        }
+
+        .alert {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInLeft 0.5s ease-out;
+        }
+
+        .alert-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ff6b6b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .alert-content h3 {
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .alert-content p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Weather Display */
+        .weather-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .weather-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .weather-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #4ecdc4;
+        }
+
+        .weather-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #4ecdc4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+        }
+
+        /* Notification Settings */
+        .notification-settings {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .toggle {
+            width: 50px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle.active {
+            background: #4ecdc4;
+        }
+
+        .toggle::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 2.5px;
+            left: 2.5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle.active::before {
+            left: 27.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png"
+                        alt="Disaster Management Logo"
+                        style="height: 36px; vertical-align: middle; margin-right: 10px;">
+                    SurakshaNet
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>System Active</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="hero">
+                <h1>SurakshaNet: India's Disaster Response Network</h1>
+                <p>Real-time monitoring and instant notifications for earthquakes, severe weather, and natural disasters
+                    across India</p>
+            </section>
+
+            <div class="controls">
+                <button class="btn" onclick="getCurrentLocation()">📍 Get My Location</button>
+                <button class="btn btn-secondary" onclick="startMonitoring()">🔄 Start Monitoring</button>
+                <button class="btn btn-secondary" onclick="testAlert()">🔔 Test Alert</button>
+                <button class="btn btn-secondary" onclick="refreshData()">♻️ Refresh Data</button>
+            </div>
+
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📍</div>
+                        <div class="card-title">Current Location</div>
+                    </div>
+                    <div id="locationDisplay" class="location-info">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div class="notification-settings">
+                        <h4 style="margin-bottom: 15px;">Notification Settings</h4>
+                        <div class="setting-item">
+                            <span>SMS Alerts</span>
+                            <div class="toggle active" onclick="toggleSetting(this)"></div>
+                        </div>
+                        <div class="setting-item">
+                            <span>Email Notifications</span>
+                            <div class="toggle active" onclick="toggleSetting(this)"></div>
+                        </div>
+                        <div class="setting-item">
+                            <span>Push Notifications</span>
+                            <div class="toggle active" onclick="toggleSetting(this)"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🌦️</div>
+                        <div class="card-title">Weather Conditions</div>
+                    </div>
+                    <div id="weatherDisplay" class="weather-display">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🚨</div>
+                        <div class="card-title">Active Alerts</div>
+                    </div>
+                    <div id="alertsDisplay">
+                        <div style="text-align: center; color: #4ecdc4; padding: 20px;">
+                            <p>✅ No active alerts in your area</p>
+                            <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">System monitoring for
+                                earthquakes, storms, and floods</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔔</div>
+                        <div class="card-title">Notification History</div>
+                    </div>
+                    <div id="notificationHistory">
+                        <div style="text-align: center; padding: 20px; color: #888;">
+                            <p>No recent notifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Global variables
+        let userLocation = null;
+        let isMonitoring = false;
+        let weatherData = null;
+        let alerts = [];
+        let notificationHistory = [];
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function () {
+            getCurrentLocation();
+            startPeriodicChecks();
+        });
+
+        // Get user's current location
+        function getCurrentLocation() {
+            const locationDisplay = document.getElementById('locationDisplay');
+            locationDisplay.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude
+                        };
+
+                        displayLocation();
+                        getWeatherData();
+                        checkForAlerts();
+                    },
+                    function (error) {
+                        locationDisplay.innerHTML = `
+                            <div style="text-align: center; color: #ff6b6b;">
+                                <p>❌ Location access denied</p>
+                                <p style="font-size: 0.9rem; margin-top: 5px;">Please enable location services for disaster alerts</p>
+                            </div>
+                        `;
+                    }
+                );
+            } else {
+                locationDisplay.innerHTML = `
+                    <div style="text-align: center; color: #ff6b6b;">
+                        <p>❌ Geolocation not supported</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Display location information using real reverse geocoding for India
+        function displayLocation() {
+            const locationDisplay = document.getElementById('locationDisplay');
+            if (!userLocation) {
+                locationDisplay.innerHTML = `<div style="color: #ff6b6b;">❌ Location not available</div>`;
+                return;
+            }
+            // Use OpenStreetMap Nominatim API for reverse geocoding
+            const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLocation.lat}&lon=${userLocation.lon}&zoom=10&addressdetails=1`;
+            fetch(url, { headers: { 'Accept-Language': 'en' } })
+                .then(response => response.json())
+                .then(data => {
+                    let address = data.display_name || 'Unknown location';
+                    // Optionally, filter for India
+                    if (data.address && data.address.country_code !== 'in') {
+                        address += ' (Not in India)';
+                    }
+                    locationDisplay.innerHTML = `
+                        <div class="location-text">${address}</div>
+                        <div class="coords">
+                            Lat: ${userLocation.lat.toFixed(4)}, Lon: ${userLocation.lon.toFixed(4)}
+                        </div>
+                    `;
+                })
+                .catch(() => {
+                    locationDisplay.innerHTML = `
+                        <div class="location-text">Location found</div>
+                        <div class="coords">
+                            Lat: ${userLocation.lat.toFixed(4)}, Lon: ${userLocation.lon.toFixed(4)}
+                        </div>
+                    `;
+                });
+        }
+
+        // Get weather data (simulation)
+        function getWeatherData() {
+            const weatherDisplay = document.getElementById('weatherDisplay');
+
+            // Simulate API call delay
+            setTimeout(function () {
+                weatherData = {
+                    temperature: Math.floor(Math.random() * 30) + 10,
+                    humidity: Math.floor(Math.random() * 40) + 30,
+                    windSpeed: Math.floor(Math.random() * 20) + 5,
+                    pressure: Math.floor(Math.random() * 50) + 1000,
+                    visibility: Math.floor(Math.random() * 5) + 5,
+                    uvIndex: Math.floor(Math.random() * 8) + 1
+                };
+
+                displayWeatherData();
+            }, 1500);
+        }
+
+        // Display weather data
+        function displayWeatherData() {
+            const weatherDisplay = document.getElementById('weatherDisplay');
+
+            weatherDisplay.innerHTML = `
+                <div class="weather-item">
+                    <div class="weather-value">${weatherData.temperature}°C</div>
+                    <div class="weather-label">Temperature</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-value">${weatherData.humidity}%</div>
+                    <div class="weather-label">Humidity</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-value">${weatherData.windSpeed} km/h</div>
+                    <div class="weather-label">Wind Speed</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-value">${weatherData.pressure} hPa</div>
+                    <div class="weather-label">Pressure</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-value">${weatherData.visibility} km</div>
+                    <div class="weather-label">Visibility</div>
+                </div>
+                <div class="weather-item">
+                    <div class="weather-value">${weatherData.uvIndex}</div>
+                    <div class="weather-label">UV Index</div>
+                </div>
+            `;
+        }
+
+        // Check for alerts (simulation)
+        function checkForAlerts() {
+            // Simulate random alerts for demo
+            const alertTypes = [
+                { type: 'earthquake', icon: '🌍', title: 'Earthquake Warning', desc: 'Magnitude 4.2 detected 50km away' },
+                { type: 'storm', icon: '⛈️', title: 'Severe Storm Alert', desc: 'Thunderstorm approaching in 2 hours' },
+                { type: 'flood', icon: '🌊', title: 'Flood Warning', desc: 'Heavy rainfall may cause flooding' }
+            ];
+
+            if (Math.random() < 0.3) { // 30% chance of alert for demo
+                const randomAlert = alertTypes[Math.floor(Math.random() * alertTypes.length)];
+                addAlert(randomAlert);
+            }
+        }
+
+        // Add new alert
+        function addAlert(alertData) {
+            const alert = {
+                id: Date.now(),
+                ...alertData,
+                timestamp: new Date().toLocaleTimeString()
+            };
+
+            alerts.unshift(alert);
+            displayAlerts();
+
+            // Add to notification history
+            addNotification(`${alert.title}: ${alert.desc}`);
+
+            // Show browser notification
+            if (Notification.permission === 'granted') {
+                new Notification(alert.title, {
+                    body: alert.desc,
+                    icon: '🚨'
+                });
+            }
+        }
+
+        // Display alerts
+        function displayAlerts() {
+            const alertsDisplay = document.getElementById('alertsDisplay');
+
+            if (alerts.length === 0) {
+                alertsDisplay.innerHTML = `
+                    <div style="text-align: center; color: #4ecdc4; padding: 20px;">
+                        <p>✅ No active alerts in your area</p>
+                        <p style="font-size: 0.9rem; color: #888; margin-top: 10px;">System monitoring for earthquakes, storms, and floods</p>
+                    </div>
+                `;
+                return;
+            }
+
+            alertsDisplay.innerHTML = alerts.map(alert => `
+                <div class="alert">
+                    <div class="alert-icon">${alert.icon}</div>
+                    <div class="alert-content">
+                        <h3>${alert.title}</h3>
+                        <p>${alert.desc}</p>
+                        <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">${alert.timestamp}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add notification to history
+        function addNotification(message) {
+            notificationHistory.unshift({
+                message: message,
+                timestamp: new Date().toLocaleString()
+            });
+
+            // Keep only last 10 notifications
+            if (notificationHistory.length > 10) {
+                notificationHistory = notificationHistory.slice(0, 10);
+            }
+
+            displayNotificationHistory();
+        }
+
+        // Display notification history
+        function displayNotificationHistory() {
+            const historyDisplay = document.getElementById('notificationHistory');
+
+            if (notificationHistory.length === 0) {
+                historyDisplay.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #888;">
+                        <p>No recent notifications</p>
+                    </div>
+                `;
+                return;
+            }
+
+            historyDisplay.innerHTML = notificationHistory.map(notification => `
+                <div style="padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                    <p style="font-size: 0.9rem;">${notification.message}</p>
+                    <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">${notification.timestamp}</p>
+                </div>
+            `).join('');
+        }
+
+        // Start monitoring
+        function startMonitoring() {
+            isMonitoring = !isMonitoring;
+            const btn = event.target;
+
+            if (isMonitoring) {
+                btn.textContent = '⏸️ Stop Monitoring';
+                btn.style.background = 'linear-gradient(45deg, #ff6b6b, #ff4757)';
+                addNotification('Disaster monitoring started');
+            } else {
+                btn.textContent = '🔄 Start Monitoring';
+                btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                addNotification('Disaster monitoring stopped');
+            }
+        }
+
+        // Test alert
+        function testAlert() {
+            const testAlerts = [
+                { type: 'test', icon: '🔔', title: 'Test Alert', desc: 'System test - all notifications working properly' },
+                { type: 'test', icon: '📱', title: 'SMS Test', desc: 'SMS notification system active' },
+                { type: 'test', icon: '📧', title: 'Email Test', desc: 'Email notification system operational' }
+            ];
+
+            const randomTest = testAlerts[Math.floor(Math.random() * testAlerts.length)];
+            addAlert(randomTest);
+        }
+
+        // Refresh data
+        function refreshData() {
+            if (userLocation) {
+                getWeatherData();
+                checkForAlerts();
+                addNotification('Data refreshed successfully');
+            } else {
+                getCurrentLocation();
+            }
+        }
+
+        // Toggle notification settings
+        function toggleSetting(toggle) {
+            toggle.classList.toggle('active');
+            const setting = toggle.parentElement.querySelector('span').textContent;
+            const status = toggle.classList.contains('active') ? 'enabled' : 'disabled';
+            addNotification(`${setting} ${status}`);
+        }
+
+        // Start periodic checks
+        function startPeriodicChecks() {
+            // Check for new alerts every 30 seconds
+            setInterval(function () {
+                if (isMonitoring && userLocation) {
+                    checkForAlerts();
+                }
+            }, 30000);
+
+            // Update weather data every 5 minutes
+            setInterval(function () {
+                if (userLocation) {
+                    getWeatherData();
+                }
+            }, 300000);
+        }
+
+        // Request notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+
+        // Add some initial notifications for demo
+        setTimeout(function () {
+            addNotification('Global Disaster Alert System initialized');
+            addNotification('Location services connected');
+            addNotification('Weather monitoring active');
+        }, 2000);
+    </script>
+</body>
+
+</html>
